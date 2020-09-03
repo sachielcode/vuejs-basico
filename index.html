@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Curso Basico de Vue.js | Platzi</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+  <div id="app" :style="{ background: '#' + color }">
+    <!-- Son equivalentes -->
+    <!-- <img v-bind:src="img" v-bind:alt="name"> -->
+    <img v-on:mouseover='toggleShowPrices' v-on:mouseout='toggleShowPrices' :src="img" :alt="name">
+    <h1 :class="changePercent > 0 ? 'green' : 'red'">
+      {{ name }}
+      <span v-if='changePercent > 0'>👍</span>
+      <span v-else-if='changePercent < 0'>👎</span>
+      <span v-else>🤞</span>
+      <!-- Estas estructuras son equivalentes pero pero con v-if los elementos no existen en el DOM -->
+      <!-- En cambio con v-show si exiten pero con style=display: none -->
+      <!-- Si es un elemento que cambie constantemente es mejor v-show para no hacer tanto cambio en el DOM -->
+      <!-- <span v-show='changePercent > 0'>👍</span>
+      <span v-show='changePercent < 0'>👎</span>
+      <span v-show='changePercent == 0'>🤞</span> -->
+    </h1>
+    <!-- 
+    <ul>
+      <li v-for='(price, index) in prices' v-bind:key='price'>{{ inSdex }} - {{ price }}</li>
+    </ul> -->
+
+    <span v-on:click='toggleShowPrices'>{{ showPrices ? '🙈' : '🐵' }}</span>
+
+    <ul v-show=showPrices>
+      <li class='uppercase'
+        :class="{ orange: price.value == actualPrice, red: price.value < actualPrice, green: price.value > actualPrice }"
+        v-for='(price, index) in pricesWithDays' v-bind:key='price.day'>{{ index }} - {{ price.day }} -
+        {{ price.value }}
+      </li>
+    </ul>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
